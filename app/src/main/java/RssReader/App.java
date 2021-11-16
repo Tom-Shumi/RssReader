@@ -3,20 +3,31 @@
  */
 package RssReader;
 
-import RssReader.constant.ArgumentTypeEnum;
 import RssReader.domain.Argument;
+import RssReader.domain.Article;
+import RssReader.factory.InputServiceFactory;
+import RssReader.service.input.InputService;
 import RssReader.util.ConvertArgumentUtils;
+import com.rometools.rome.io.FeedException;
 
-import java.util.Map;
+import java.io.IOException;
+import java.util.List;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FeedException {
         System.out.println("Start RssReader");
         Argument argument = ConvertArgumentUtils.convertArgument(args);
+
+        List<Article> articleList = InputServiceFactory.create(argument).inputArticle(argument.getInput());
+
+        // TODO 変換
+
+        // TODO出力
 
         System.out.println("-i:" + argument.getInput());
         System.out.println("-c:" + argument.getConvertTypeList().get(0));
         System.out.println("-o:" + argument.getOutput());
     }
+
 }

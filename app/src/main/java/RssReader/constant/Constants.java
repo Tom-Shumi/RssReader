@@ -6,4 +6,5 @@ public class Constants {
     public static String HTTPS_PREFIX = "https://";
 
     public static String CONVERT_TYPE_DELIMITER = ",";
+    public static String FILE_CONTENT_PREFIX_DELIMITER = ":";
 }
