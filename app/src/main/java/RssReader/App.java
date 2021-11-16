@@ -5,8 +5,9 @@ package RssReader;
 
 import RssReader.domain.Argument;
 import RssReader.domain.Article;
+import RssReader.factory.ConvertServiceFactory;
 import RssReader.factory.InputServiceFactory;
-import RssReader.service.input.InputService;
+import RssReader.service.convert.ConvertService;
 import RssReader.util.ConvertArgumentUtils;
 import com.rometools.rome.io.FeedException;
 
@@ -21,7 +22,7 @@ public class App {
 
         List<Article> articleList = InputServiceFactory.create(argument).inputArticle(argument.getInput());
 
-        // TODO 変換
+        articleList = convert(articleList, argument);
 
         // TODO出力
 
@@ -30,4 +31,13 @@ public class App {
         System.out.println("-o:" + argument.getOutput());
     }
 
+    private static List<Article> convert(List<Article> articleList, Argument argument) {
+        List<ConvertService> convertServiceList = ConvertServiceFactory.create(argument);
+
+        for (ConvertService convertService: convertServiceList) {
+            articleList = convertService.convert(articleList);
+        }
+
+        return articleList;
+    }
 }
