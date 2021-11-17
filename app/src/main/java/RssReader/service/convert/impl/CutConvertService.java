@@ -17,7 +17,11 @@ public class CutConvertService implements ConvertService {
     }
 
     private void cut(Article article) {
-        article.setTitle(article.getTitle().substring(0, CUT_TITLE_LENGTH));
-        article.setBody(article.getBody().substring(0, CUT_BODY_LENGTH));
+        article.setTitle(article.getTitle().substring(0, minLength(CUT_TITLE_LENGTH, article.getTitle())));
+        article.setBody(article.getBody().substring(0, minLength(CUT_BODY_LENGTH, article.getBody())));
+    }
+
+    private int minLength(int cutLength, String content) {
+        return Math.min(cutLength, content.length());
     }
 }
