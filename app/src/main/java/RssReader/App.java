@@ -21,7 +21,6 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args) throws IOException, FeedException {
-        System.out.println("Start RssReader");
         Argument argument = ConvertArgumentUtils.convertArgument(args);
 
         List<Article> articleList = InputService.input(argument);
