@@ -15,7 +15,11 @@ Java version: openjdk version "11.0.2"
 ■RSS取り込み時  
 ・取り込むタグは「title」「description」のみとする。
 
-TODO: READMEの修正、エラー処理、JavaDocの付与、試験
+■ファイル出力時  
+・出力ファイルの文字コードはUTF-8とする。  
+・出力対象ファイルが既に存在した場合は追記ではなく、上書きとする。
+
+TODO: クラス図の作成、READMEの修正、エラー処理、試験、JavaDocの付与
 
 コンパイル：gradle shadowJar  
 実行コマンド：java -jar app/build/libs/RssReader-all.jar -i http://test.com/ -c cut -o result.txt

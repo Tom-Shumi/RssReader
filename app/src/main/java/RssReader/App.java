@@ -5,10 +5,6 @@ package RssReader;
 
 import RssReader.domain.Argument;
 import RssReader.domain.Article;
-import RssReader.domain.OutputArticle;
-import RssReader.factory.ConvertServiceFactory;
-import RssReader.factory.InputServiceFactory;
-import RssReader.factory.OutputServiceFactory;
 import RssReader.service.convert.ConvertService;
 import RssReader.service.input.InputService;
 import RssReader.service.output.OutputService;
@@ -28,5 +24,7 @@ public class App {
         articleList = ConvertService.convert(articleList, argument);
 
         OutputService.output(articleList, argument);
+
+        System.out.println("正常に終了しました。");
     }
 }
