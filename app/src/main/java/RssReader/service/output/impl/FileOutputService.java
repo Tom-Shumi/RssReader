@@ -7,6 +7,6 @@ public class FileOutputService implements OutputService {
 
     @Override
     public void outputArticle(OutputArticle outputArticle) {
-
+        // TODO
     }
 }

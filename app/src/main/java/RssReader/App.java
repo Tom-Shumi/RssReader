@@ -5,9 +5,13 @@ package RssReader;
 
 import RssReader.domain.Argument;
 import RssReader.domain.Article;
+import RssReader.domain.OutputArticle;
 import RssReader.factory.ConvertServiceFactory;
 import RssReader.factory.InputServiceFactory;
+import RssReader.factory.OutputServiceFactory;
 import RssReader.service.convert.ConvertService;
+import RssReader.service.input.InputService;
+import RssReader.service.output.OutputService;
 import RssReader.util.ConvertArgumentUtils;
 import com.rometools.rome.io.FeedException;
 
@@ -20,24 +24,10 @@ public class App {
         System.out.println("Start RssReader");
         Argument argument = ConvertArgumentUtils.convertArgument(args);
 
-        List<Article> articleList = InputServiceFactory.create(argument).inputArticle(argument.getInput());
+        List<Article> articleList = InputService.input(argument);
 
-        articleList = convert(articleList, argument);
+        articleList = ConvertService.convert(articleList, argument);
 
-        // TODO出力
-
-        System.out.println("-i:" + argument.getInput());
-        System.out.println("-c:" + argument.getConvertTypeList().get(0));
-        System.out.println("-o:" + argument.getOutput());
-    }
-
-    private static List<Article> convert(List<Article> articleList, Argument argument) {
-        List<ConvertService> convertServiceList = ConvertServiceFactory.create(argument);
-
-        for (ConvertService convertService: convertServiceList) {
-            articleList = convertService.convert(articleList);
-        }
-
-        return articleList;
+        OutputService.output(articleList, argument);
     }
 }

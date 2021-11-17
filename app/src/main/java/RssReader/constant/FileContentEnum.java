@@ -2,5 +2,9 @@ package RssReader.constant;
 
 public enum FileContentEnum {
     TITLE,
-    BODY
+    BODY;
+
+    public String toLowerCaseString() {
+        return toString().toLowerCase();
+    }
 }

@@ -45,7 +45,7 @@ public class FileInputService implements InputService {
 
         if (contentArray.length == 0) {
             throw new IllegalArgumentException();
-        } else if (!fileContent.toString().toLowerCase().equals(contentArray[0])) {
+        } else if (!fileContent.toLowerCaseString().equals(contentArray[0])) {
             throw new IllegalArgumentException();
         }
 

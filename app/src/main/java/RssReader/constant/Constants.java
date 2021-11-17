@@ -13,4 +13,6 @@ public class Constants {
 
     public static String REPLACE_FROM_WORD = "ユーザベース";
     public static String REPLACE_TO_WORD = "UZABASE";
+
+    public static String OUTPUT_FORMAT = "%s: %s";
 }
