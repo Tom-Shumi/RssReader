@@ -3,6 +3,7 @@ package RssReader.service.output.impl;
 import RssReader.constant.FileContentEnum;
 import RssReader.domain.Article;
 import RssReader.domain.OutputArticle;
+import RssReader.exception.OutputArticleException;
 import RssReader.service.output.OutputService;
 
 import java.io.BufferedWriter;
@@ -12,15 +13,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static RssReader.constant.Constants.OUTPUT_FORMAT;
+import static RssReader.constant.ErrorMessage.INVALID_OUTPUT_FILE;
 
 public class FileOutputService implements OutputService {
 
     @Override
-    public void outputArticle(OutputArticle outputArticle) throws IOException {
+    public void outputArticle(OutputArticle outputArticle) {
         try (BufferedWriter out = Files.newBufferedWriter(Paths.get(outputArticle.getOutput()), StandardCharsets.UTF_8)) {
             for (Article article : outputArticle.getArticleList()) {
                 outputFile(out, article);
             }
+        } catch (IOException e) {
+            throw new OutputArticleException(INVALID_OUTPUT_FILE);
         }
     }
 

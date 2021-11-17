@@ -9,22 +9,39 @@ import RssReader.service.convert.ConvertService;
 import RssReader.service.input.InputService;
 import RssReader.service.output.OutputService;
 import RssReader.util.ConvertArgumentUtils;
-import com.rometools.rome.io.FeedException;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
 import java.util.List;
+
+import static RssReader.constant.ErrorMessage.ERROR_OCCURRED;
+import static RssReader.constant.Message.SUCCESS;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, FeedException {
-        Argument argument = ConvertArgumentUtils.convertArgument(args);
+    public static void main(String[] args) {
 
-        List<Article> articleList = InputService.input(argument);
+        try {
+            Argument argument = ConvertArgumentUtils.convertArgument(args);
 
-        articleList = ConvertService.convert(articleList, argument);
+            List<Article> articleList = InputService.input(argument);
 
-        OutputService.output(articleList, argument);
+            articleList = ConvertService.convert(articleList, argument);
 
-        System.out.println("正常に終了しました。");
+            OutputService.output(articleList, argument);
+
+            System.out.println(SUCCESS);
+
+        } catch (Exception e) {
+            printErrorMessage(e);
+        }
+    }
+
+    private static void printErrorMessage(Exception e) {
+        System.out.println(ERROR_OCCURRED);
+        if (StringUtils.isNotEmpty(e.getMessage())) {
+            System.out.println(e.getMessage());
+        } else {
+            e.printStackTrace();
+        }
     }
 }

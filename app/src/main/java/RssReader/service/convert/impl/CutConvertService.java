@@ -11,7 +11,7 @@ import static RssReader.constant.Constants.CUT_TITLE_LENGTH;
 public class CutConvertService implements ConvertService {
 
     @Override
-    public List<Article> convert(List<Article> articleList) {
+    public List<Article> convertArticle(List<Article> articleList) {
         articleList.forEach(this::cut);
         return articleList;
     }

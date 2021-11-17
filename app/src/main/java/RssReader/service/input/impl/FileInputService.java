@@ -1,9 +1,9 @@
 package RssReader.service.input.impl;
 
 import RssReader.constant.FileContentEnum;
+import RssReader.exception.InputArticleException;
 import RssReader.service.input.InputService;
 import RssReader.domain.Article;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -13,20 +13,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static RssReader.constant.Constants.FILE_CONTENT_PREFIX_DELIMITER;
+import static RssReader.constant.ErrorMessage.*;
 
 public class FileInputService implements InputService {
 
     @Override
-    public List<Article> inputArticle(String input) throws IOException {
+    public List<Article> inputArticle(String input) {
 
-        List<String> fileTextList = Files.readAllLines(Paths.get(input));
+        try {
 
-        return createArticleList(fileTextList);
+            List<String> fileTextList = Files.readAllLines(Paths.get(input));
+            return createArticleList(fileTextList);
+
+        } catch (IOException e) {
+            throw new InputArticleException(INVALID_INPUT_ARGUMENT);
+        }
     }
 
     private List<Article> createArticleList(List<String> fileTextList) {
         List<Article> articleList = new ArrayList<>();
 
+        // 3行(title,body,空行)ずつ取り込みするため。[i = i + 3]
         for (int i = 0; i < fileTextList.size(); i = i + 3) {
             articleList.add(Article.builder()
                     .title(getContent(fileTextList.get(i), FileContentEnum.TITLE))
@@ -34,7 +41,7 @@ public class FileInputService implements InputService {
                     .build());
 
             if (checkBlankLine(fileTextList, i)) {
-                throw new IllegalArgumentException();
+                throw new InputArticleException(INVALID_INPUT_FORMAT);
             }
         }
         return articleList;
@@ -43,10 +50,10 @@ public class FileInputService implements InputService {
     private String getContent(String fileText, FileContentEnum fileContent) {
         String[] contentArray = fileText.split(FILE_CONTENT_PREFIX_DELIMITER, 2); // コンテンツ中の「:」までsplitしないため
 
-        if (contentArray.length == 0) {
-            throw new IllegalArgumentException();
+        if (contentArray.length == 1) {
+            throw new InputArticleException(INVALID_INPUT_DELIMITER);
         } else if (!fileContent.toLowerCaseString().equals(contentArray[0])) {
-            throw new IllegalArgumentException();
+            throw new InputArticleException(INVALID_INPUT_ITEM_NAME);
         }
 
         return contentArray[1].trim();

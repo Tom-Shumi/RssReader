@@ -10,7 +10,7 @@ import static RssReader.constant.Constants.*;
 public class ReplaceConvertService implements ConvertService {
 
     @Override
-    public List<Article> convert(List<Article> articleList) {
+    public List<Article> convertArticle(List<Article> articleList) {
         articleList.forEach(this::replace);
         return articleList;
     }

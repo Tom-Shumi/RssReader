@@ -19,10 +19,6 @@ public class Argument {
     private String output;
 
     public boolean isInputRss() {
-        if (StringUtils.isEmpty(input)) {
-            return false;
-        }
-
         return input.startsWith(HTTP_PREFIX) || input.startsWith(HTTPS_PREFIX);
     }
 

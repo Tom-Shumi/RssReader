@@ -34,6 +34,7 @@ public class ConvertArgumentUtils {
     private static Argument createArgument(String[] args) {
         Argument argument = new Argument();
 
+        // 2個(オプション名,オプション値)ずつ取り込みするため。[i = i + 2]
         for (int i = 0; i < args.length; i = i + 2) {
 
             if (args[i].equals(ArgumentTypeEnum.INPUT.getValue())) {
@@ -46,7 +47,7 @@ public class ConvertArgumentUtils {
                 argument.setOutput(args[i + 1]);
 
             } else {
-                throw new IllegalArgumentException(ErrorMessage.INVALID_ARGUMENT);
+                throw new IllegalArgumentException(ErrorMessage.UNDEFINED_ARGUMENT);
 
             }
         }
@@ -55,7 +56,7 @@ public class ConvertArgumentUtils {
 
     private static List<ConvertTypeEnum> toConvertTypeList(String convertTypeArray) {
         if (StringUtils.isEmpty(convertTypeArray)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ARGUMENT);
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_CONVERT_ARGUMENT);
         }
         List<ConvertTypeEnum> convertTypeList = new ArrayList<>();
         for (String convertType: convertTypeArray.split(CONVERT_TYPE_DELIMITER)) {
@@ -67,14 +68,14 @@ public class ConvertArgumentUtils {
 
     private static ConvertTypeEnum toConvertTypeEnum(String convertType) {
         if (StringUtils.isEmpty(convertType)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ARGUMENT);
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_CONVERT_ARGUMENT);
         }
-        return ConvertTypeEnum.valueOf(convertType.toUpperCase());
+        return ConvertTypeEnum.of(convertType.toUpperCase());
     }
 
     private static void requiredCheck(Argument argument) {
         if (Objects.isNull(argument.getInput())) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ARGUMENT);
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_INPUT_ARGUMENT);
         }
     }
 }
