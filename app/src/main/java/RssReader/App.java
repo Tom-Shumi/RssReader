@@ -16,8 +16,15 @@ import java.util.List;
 import static RssReader.constant.ErrorMessage.ERROR_OCCURRED;
 import static RssReader.constant.Message.SUCCESS;
 
+/**
+ * コントローラークラス
+ */
 public class App {
 
+    /**
+     * mainメソッド
+     * @param args NotNull コマンドライン引数
+     */
     public static void main(String[] args) {
 
         try {

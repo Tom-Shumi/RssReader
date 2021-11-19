@@ -15,8 +15,14 @@ import java.nio.file.Paths;
 import static RssReader.constant.Constants.OUTPUT_FORMAT;
 import static RssReader.constant.ErrorMessage.INVALID_OUTPUT_FILE;
 
+/**
+ * 出力処理用（ファイル）のサービス
+ */
 public class FileOutputService implements OutputService {
 
+    /**
+     * ${inheritDoc}
+     */
     @Override
     public void outputArticle(OutputArticle outputArticle) {
         try (BufferedWriter out = Files.newBufferedWriter(Paths.get(outputArticle.getOutput()), StandardCharsets.UTF_8)) {

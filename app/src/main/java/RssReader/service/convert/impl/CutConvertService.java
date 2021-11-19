@@ -8,8 +8,14 @@ import java.util.List;
 import static RssReader.constant.Constants.CUT_BODY_LENGTH;
 import static RssReader.constant.Constants.CUT_TITLE_LENGTH;
 
+/**
+ * 変換処理用（文字列カット）のサービス
+ */
 public class CutConvertService implements ConvertService {
 
+    /**
+     * ${inheritDoc}
+     */
     @Override
     public List<Article> convertArticle(List<Article> articleList) {
         articleList.forEach(this::cut);

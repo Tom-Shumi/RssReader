@@ -4,7 +4,7 @@ Java version: 11
 RSSライブラリ：com.rometools:rome:1.16.0
 
 コンパイルコマンド：gradle shadowJar  
-実行コマンド：java -jar RssReader-all.jar -i https://news.yahoo.co.jp/rss/topics/it.xml -c cut -o result.txt
+実行コマンド：java -jar RssReader-all.jar -i https://news.yahoo.co.jp/rss/topics/it.xml -c cut,convert -o result.txt
 
 前提条件：
     ■ファイル取り込み時

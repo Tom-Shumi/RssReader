@@ -12,8 +12,16 @@ import java.util.Objects;
 
 import static RssReader.constant.Constants.CONVERT_TYPE_DELIMITER;
 
+/**
+ * コマンドライン引数変換クラス
+ */
 public class ConvertArgumentUtils {
 
+    /**
+     * コマンドライン引数を変換する
+     * @param args NotNull コマンドライン引数
+     * @return 変換後のコマンドライン引数
+     */
     public static Argument convertArgument(String[] args) {
 
         if (checkArgs(args)) {

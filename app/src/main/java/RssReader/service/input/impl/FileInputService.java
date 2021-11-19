@@ -15,8 +15,14 @@ import java.util.List;
 import static RssReader.constant.Constants.FILE_CONTENT_PREFIX_DELIMITER;
 import static RssReader.constant.ErrorMessage.*;
 
+/**
+ * 取り込み処理用（ファイル）のサービス
+ */
 public class FileInputService implements InputService {
 
+    /**
+     * ${inheritDoc}
+     */
     @Override
     public List<Article> inputArticle(String input) {
 

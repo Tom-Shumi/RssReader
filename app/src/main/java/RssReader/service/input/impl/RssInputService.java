@@ -16,8 +16,14 @@ import java.util.stream.Collectors;
 
 import static RssReader.constant.ErrorMessage.INVALID_INPUT_URL;
 
+/**
+ * 取り込み処理用（RSS）のサービス
+ */
 public class RssInputService implements InputService {
 
+    /**
+     * ${inheritDoc}
+     */
     @Override
     public List<Article> inputArticle(String input) {
 

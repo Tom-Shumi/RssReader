@@ -7,8 +7,14 @@ import RssReader.service.output.OutputService;
 
 import static RssReader.constant.Constants.OUTPUT_FORMAT;
 
+/**
+ * 出力処理用（標準出力）のサービス
+ */
 public class StandardOutputService implements OutputService {
 
+    /**
+     * ${inheritDoc}
+     */
     @Override
     public void outputArticle(OutputArticle outputArticle) {
         for (Article article : outputArticle.getArticleList()) {
