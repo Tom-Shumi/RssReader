@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 出力処理用の情報を保持するクラス
+ */
 @Data
 @Builder
 public class OutputArticle {

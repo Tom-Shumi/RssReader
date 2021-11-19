@@ -1,5 +1,8 @@
 package RssReader.constant;
 
+/**
+ * 定数
+ */
 public class Constants {
 
     public static String HTTP_PREFIX = "http://";

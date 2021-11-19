@@ -1,5 +1,8 @@
 package RssReader.constant;
 
+/**
+ * エラーメッセージ
+ */
 public class ErrorMessage {
 
     public static String ERROR_OCCURRED = "エラーが発生しました。";

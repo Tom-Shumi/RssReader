@@ -9,6 +9,9 @@ import java.util.List;
 import static RssReader.constant.Constants.HTTPS_PREFIX;
 import static RssReader.constant.Constants.HTTP_PREFIX;
 
+/**
+ * コマンドライン引数を保持するクラス
+ */
 @Data
 public class Argument {
 
