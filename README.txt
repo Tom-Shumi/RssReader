@@ -1,6 +1,8 @@
 RssReader
 
-Java version: openjdk version "11.0.2"
+Java version: 11
+RSSライブラリ：com.rometools:rome:1.16.0
+
 コンパイルコマンド：gradle shadowJar  
 実行コマンド：java -jar RssReader-all.jar -i https://news.yahoo.co.jp/rss/topics/it.xml -c cut -o result.txt
 
@@ -24,3 +26,12 @@ Java version: openjdk version "11.0.2"
             1行目：「title」
             2行目：「body」
             3行目：空行
+
+■その他
+・「http://tech.uzabase.com/rss」でRSS取得の試験を行いましたが、レスポンスの形式が不正でエラーとなっています。
+   エラーメッセージ：Invalid XML: Error on line 6: 要素タイプ"hr"は、対応する終了タグ"</hr>"で終了する必要があります。
+
+　 下記のような他のRSSは正常に取得できるので本アプリケーションとしては問題ないかと思います。
+    ・https://news.yahoo.co.jp/rss/topics/it.xml
+    ・https://www.nhk.or.jp/rss/news/cat0.xml
+    ・https://rss.itmedia.co.jp/rss/2.0/itmedia_all.xml
