@@ -12,7 +12,7 @@ public class OutputServiceFactory {
 
     /**
      * コマンドライン引数の出力オプションを元にOutputServiceを生成する
-     * @param argument Notnull コマンドライン引数
+     * @param argument コマンドライン引数
      * @return コマンドライン引数を元に生成したOutputService
      */
     public static OutputService create(Argument argument) {

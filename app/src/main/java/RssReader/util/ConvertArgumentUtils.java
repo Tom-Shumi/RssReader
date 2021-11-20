@@ -19,7 +19,7 @@ public class ConvertArgumentUtils {
 
     /**
      * コマンドライン引数を変換する
-     * @param args NotNull コマンドライン引数
+     * @param args コマンドライン引数
      * @return 変換後のコマンドライン引数
      */
     public static Argument convertArgument(String[] args) {

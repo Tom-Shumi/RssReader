@@ -13,14 +13,14 @@ public interface InputService {
 
     /**
      * 取り込み処理
-     * @param input NotNull 取り込み対象
+     * @param input 取り込み対象
      * @return 取り込んだコンテンツリスト
      */
     List<Article> inputArticle(String input);
 
     /**
      * 取り込み処理を実行する
-     * @param argument NotNull コマンドライン引数
+     * @param argument コマンドライン引数
      * @return 取り込んだコンテンツリスト
      */
     static List<Article> input(Argument argument) {

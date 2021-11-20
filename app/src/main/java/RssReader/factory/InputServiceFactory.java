@@ -12,7 +12,7 @@ public class InputServiceFactory {
 
     /**
      * コマンドライン引数の入力オプションを元にInputServiceを生成する
-     * @param argument Notnull コマンドライン引数
+     * @param argument コマンドライン引数
      * @return コマンドライン引数を元に生成したInputService
      */
     public static InputService create(Argument argument) {

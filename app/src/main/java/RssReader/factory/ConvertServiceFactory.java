@@ -18,7 +18,7 @@ public class ConvertServiceFactory {
 
     /**
      * コマンドライン引数の変換オプションから指定のConvertServiceを生成する
-     * @param argument Notnull コマンドライン引数
+     * @param argument コマンドライン引数
      * @return コマンドライン引数から生成したConvertServiceのリスト
      */
     public static List<ConvertService> create(Argument argument) {

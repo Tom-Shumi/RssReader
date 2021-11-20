@@ -11,7 +11,7 @@ public enum ConvertTypeEnum {
 
     /**
      * 文字列をConvertTypeEnumに変換する
-     * @param convertType NotNull 変換する文字列
+     * @param convertType 変換する文字列
      * @return 変換されたConvertTypeEnum
      */
     public static ConvertTypeEnum of(String convertType) {

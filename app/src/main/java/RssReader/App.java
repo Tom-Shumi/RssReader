@@ -23,7 +23,7 @@ public class App {
 
     /**
      * mainメソッド
-     * @param args NotNull コマンドライン引数
+     * @param args コマンドライン引数
      */
     public static void main(String[] args) {
 
