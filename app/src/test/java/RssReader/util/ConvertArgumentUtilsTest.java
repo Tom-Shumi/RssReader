@@ -4,7 +4,10 @@ import RssReader.constant.ConvertTypeEnum;
 import RssReader.domain.Argument;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ConvertArgumentUtilsTest {
 
@@ -55,5 +58,41 @@ public class ConvertArgumentUtilsTest {
         assertEquals(argument.getConvertTypeList().get(0), ConvertTypeEnum.CUT);
         assertEquals(argument.getConvertTypeList().get(1), ConvertTypeEnum.CONVERT);
         assertEquals(argument.getOutput(), "output");
+    }
+
+    @Test
+    void invalidArgsCount() {
+        // 事前準備 & 実行
+        Throwable exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> ConvertArgumentUtils.convertArgument(new String[]{"-i", "input", "-c"})
+        );
+
+        // 検証
+        assertEquals(exception.getMessage(), "コマンドライン引数が不正です。");
+    }
+
+    @Test
+    void invalidArgType() {
+        // 事前準備 & 実行
+        Throwable exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> ConvertArgumentUtils.convertArgument(new String[]{"-e", "input"})
+        );
+
+        // 検証
+        assertEquals(exception.getMessage(), "未定義のコマンドライン引数が設定されています。");
+    }
+
+    @Test
+    void notDefineInput() {
+        // 事前準備 & 実行
+        Throwable exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> ConvertArgumentUtils.convertArgument(new String[]{"-c", "cut"})
+        );
+
+        // 検証
+        assertEquals(exception.getMessage(), "取り込み対象を指定してください。");
     }
 }

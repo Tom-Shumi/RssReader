@@ -10,7 +10,6 @@ public class ErrorMessage {
     public static String INVALID_ARGUMENT = "コマンドライン引数が不正です。";
     public static String UNDEFINED_ARGUMENT = "未定義のコマンドライン引数が設定されています。";
 
-    public static String EMPTY_CONVERT_ARGUMENT = "変換オプションを指定してください。";
     public static String UNDEFINED_CONVERT_ARGUMENT = "未定義の変換オプションが指定されています。";
 
     public static String EMPTY_INPUT_ARGUMENT = "取り込み対象を指定してください。";

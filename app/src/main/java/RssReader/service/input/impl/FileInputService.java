@@ -20,6 +20,13 @@ import static RssReader.constant.ErrorMessage.*;
  */
 public class FileInputService implements InputService {
 
+    private static final int ARTICLE_ROW_NUMBER = 3;
+    private static final int BODY_ROW_INDEX = 1;
+    private static final int BLANK_ROW_INDEX = 2;
+    private static final int ITEM_NAME_COLUMN_INDEX = 0;
+    private static final int CONTENT_COLUMN_INDEX = 1;
+    private static final int SPLIT_LIMIT = 2;
+
     /**
      * ${inheritDoc}
      */
@@ -39,11 +46,11 @@ public class FileInputService implements InputService {
     private List<Article> createArticleList(List<String> fileTextList) {
         List<Article> articleList = new ArrayList<>();
 
-        // 3行(title,body,空行)ずつ取り込みするため。[i = i + 3]
-        for (int i = 0; i < fileTextList.size(); i = i + 3) {
+        // 3行(title,body,空行)ずつ取り込みするため。[i = i + ARTICLE_ROW_NUMBER]
+        for (int i = 0; i < fileTextList.size(); i = i + ARTICLE_ROW_NUMBER) {
             articleList.add(Article.builder()
                     .title(getContent(fileTextList.get(i), FileContentEnum.TITLE))
-                    .body(getContent(fileTextList.get(i + 1), FileContentEnum.BODY))
+                    .body(getContent(fileTextList.get(i + BODY_ROW_INDEX), FileContentEnum.BODY))
                     .build());
 
             if (checkBlankLine(fileTextList, i)) {
@@ -54,19 +61,20 @@ public class FileInputService implements InputService {
     }
 
     private String getContent(String fileText, FileContentEnum fileContent) {
-        String[] contentArray = fileText.split(FILE_CONTENT_PREFIX_DELIMITER, 2); // コンテンツ中の「:」までsplitしないため
+        String[] contentArray = fileText.split(FILE_CONTENT_PREFIX_DELIMITER, SPLIT_LIMIT); // コンテンツ中の「:」までsplitしないため
 
         if (contentArray.length == 1) {
+            // splitできなかった場合
             throw new InputArticleException(INVALID_INPUT_DELIMITER);
-        } else if (!fileContent.toLowerCaseString().equals(contentArray[0])) {
+        } else if (!fileContent.toLowerCaseString().equals(contentArray[ITEM_NAME_COLUMN_INDEX])) {
             throw new InputArticleException(INVALID_INPUT_ITEM_NAME);
         }
 
-        return contentArray[1].trim();
+        return contentArray[CONTENT_COLUMN_INDEX].trim();
     }
 
     private boolean checkBlankLine(List<String> fileTextList, int i) {
-        // 最終行に空行が無い可能性があるため。[fileTextList.size() > i + 2]
-        return fileTextList.size() > i + 2 && StringUtils.isNotEmpty(fileTextList.get(i + 2));
+        // 最終行に空行が無い可能性があるため。[fileTextList.size() > i + BLANK_ROW_INDEX]
+        return fileTextList.size() > i + BLANK_ROW_INDEX && StringUtils.isNotEmpty(fileTextList.get(i + BLANK_ROW_INDEX));
     }
 }

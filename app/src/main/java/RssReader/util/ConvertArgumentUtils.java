@@ -17,6 +17,9 @@ import static RssReader.constant.Constants.CONVERT_TYPE_DELIMITER;
  */
 public class ConvertArgumentUtils {
 
+    private static final int OPTION_PROCESSING_UNIT_COUNT = 2;
+    private static final int OPTION_CONTENT_INDEX = 1;
+
     /**
      * コマンドライン引数を変換する
      * @param args コマンドライン引数
@@ -36,23 +39,23 @@ public class ConvertArgumentUtils {
     }
 
     private static boolean checkArgs(String[] args) {
-        return args == null || args.length == 0 || args.length % 2 != 0;
+        return args == null || args.length == 0 || args.length % OPTION_PROCESSING_UNIT_COUNT != 0;
     }
 
     private static Argument createArgument(String[] args) {
         Argument argument = new Argument();
 
-        // 2個(オプション名,オプション値)ずつ取り込みするため。[i = i + 2]
-        for (int i = 0; i < args.length; i = i + 2) {
+        // 2個(オプション名,オプション値)ずつ取り込みするため。[i = i + OPTION_PROCESSING_UNIT_COUNT]
+        for (int i = 0; i < args.length; i = i + OPTION_PROCESSING_UNIT_COUNT) {
 
             if (args[i].equals(ArgumentTypeEnum.INPUT.getValue())) {
-                argument.setInput(args[i + 1]);
+                argument.setInput(args[i + OPTION_CONTENT_INDEX]);
 
             } else if (args[i].equals(ArgumentTypeEnum.CONVERT_TYPE.getValue())) {
-                argument.setConvertTypeList(toConvertTypeList(args[i + 1]));
+                argument.setConvertTypeList(toConvertTypeList(args[i + OPTION_CONTENT_INDEX]));
 
             } else if (args[i].equals(ArgumentTypeEnum.OUTPUT.getValue())) {
-                argument.setOutput(args[i + 1]);
+                argument.setOutput(args[i + OPTION_CONTENT_INDEX]);
 
             } else {
                 throw new IllegalArgumentException(ErrorMessage.UNDEFINED_ARGUMENT);
@@ -63,9 +66,6 @@ public class ConvertArgumentUtils {
     }
 
     private static List<ConvertTypeEnum> toConvertTypeList(String convertTypeArray) {
-        if (StringUtils.isEmpty(convertTypeArray)) {
-            throw new IllegalArgumentException(ErrorMessage.EMPTY_CONVERT_ARGUMENT);
-        }
         List<ConvertTypeEnum> convertTypeList = new ArrayList<>();
         for (String convertType: convertTypeArray.split(CONVERT_TYPE_DELIMITER)) {
             convertTypeList.add(toConvertTypeEnum(convertType));
@@ -75,9 +75,6 @@ public class ConvertArgumentUtils {
     }
 
     private static ConvertTypeEnum toConvertTypeEnum(String convertType) {
-        if (StringUtils.isEmpty(convertType)) {
-            throw new IllegalArgumentException(ErrorMessage.EMPTY_CONVERT_ARGUMENT);
-        }
         return ConvertTypeEnum.of(convertType.toUpperCase());
     }
 

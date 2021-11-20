@@ -61,15 +61,39 @@ public class FileInputServiceTest {
     }
 
     @Test
-    void exception() throws InvocationTargetException, IllegalAccessException {
+    void invalidFileFormat() {
         // 事前準備 & 実行
         Throwable exception = assertThrows(
                 InvocationTargetException.class,
-                () -> createArticleList.invoke(fileInputService, exceptionContentList())
+                () -> createArticleList.invoke(fileInputService, invalidFileFormatList())
         );
 
         // 検証
         assertEquals(exception.getCause().getMessage(), "ファイル内の形式が不正です。");
+    }
+
+    @Test
+    void invalidDelimiter() {
+        // 事前準備 & 実行
+        Throwable exception = assertThrows(
+                InvocationTargetException.class,
+                () -> createArticleList.invoke(fileInputService, invalidDelimiterList())
+        );
+
+        // 検証
+        assertEquals(exception.getCause().getMessage(), "ファイル内のデリミタが不正です。");
+    }
+
+    @Test
+    void invalidItemName() {
+        // 事前準備 & 実行
+        Throwable exception = assertThrows(
+                InvocationTargetException.class,
+                () -> createArticleList.invoke(fileInputService, invalidItemNameList())
+        );
+
+        // 検証
+        assertEquals(exception.getCause().getMessage(), "ファイル内の項目名が不正です。");
     }
 
     private List<String> oneContentList() {
@@ -81,8 +105,18 @@ public class FileInputServiceTest {
                 "title: タ:イ:ト:ル:2", "body: 内容2", "");
     }
 
-    private List<String> exceptionContentList() {
+    private List<String> invalidFileFormatList() {
         return List.of("title: タイトル1", "body: 内容1",
                 "title: タ:イ:ト:ル:2", "body: 内容2", "");
+    }
+
+    private List<String> invalidDelimiterList() {
+        return List.of("title_ タイトル1", "body: 内容1",
+                "title: タ:イ:ト:ル:2", "body: 内容2");
+    }
+
+    private List<String> invalidItemNameList() {
+        return List.of("name: タイトル1", "body: 内容1",
+                "title: タ:イ:ト:ル:2", "body: 内容2");
     }
 }
